@@ -6,27 +6,43 @@ usage()
 	echo "Usage:"
 	echo "   common-licenses -l"
 	echo "        List all common licenses available"
+	echo "   common-licenses -s <LICENSE_NAME>"
+	echo "        Shows license content/text"
 	echo "   common-licenses -p <LICENSE_NAME>"
 	echo "        Prints license content/text"
+	exit 1
 }
 
-
-while getopts 'lp' o;
-do
-	case $o in
-		l) ls /usr/share/common-licenses/
-			;;
-		p) licenses=($(ls /usr/share/common-licenses/))
-		   if [[ ${licenses[@]}  =~ $2 ]]
-		   then
-			less "/usr/share/common-licenses/$2"
-		   else
-			echo "Invalid license/passed value"
-		   fi
-		   ;;
-		*)
-			usage
-			exit 1
-			;;
-	esac
-done
+if [ "$1" ]; then
+	while getopts 'lsp:' o;
+	do
+		case $o in
+			l) ls /usr/share/common-licenses/
+				;;
+			s) licenses=($(ls /usr/share/common-licenses/))
+		   	if [[ ${licenses[@]}  =~ $2 ]]
+		   	then
+				less "/usr/share/common-licenses/$2"
+		   	else
+				echo "Invalid license/passed value"
+		   	fi
+		   	;;
+			p) licenses=($(ls /usr/share/common-licenses/))
+		   	if [[ ${licenses[@]}  =~ $2 ]]
+		   	then
+				cat "/usr/share/common-licenses/$2"
+		   	else
+				echo "Invalid license/passed value"
+		   	fi
+		   	;;
+			*)
+				usage
+				;;
+			?)
+				usage
+				;;
+		esac
+	done
+else
+	usage
+fi
