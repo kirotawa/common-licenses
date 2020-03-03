@@ -1,4 +1,4 @@
-BINDIR = /usr/bin/
+BINDIR = /usr/local/bin/
 PROGNAME = common-licenses
 
 install:
