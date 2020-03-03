@@ -1,0 +1,32 @@
+#!/bin/bash
+
+
+usage()
+{
+	echo "Usage:"
+	echo "   common-licenses -l"
+	echo "        List all common licenses available"
+	echo "   common-licenses -p <LICENSE_NAME>"
+	echo "        Prints license content/text"
+}
+
+
+while getopts 'lp' o;
+do
+	case $o in
+		l) ls /usr/share/common-licenses/
+			;;
+		p) licenses=($(ls /usr/share/common-licenses/))
+		   if [[ ${licenses[@]}  =~ $2 ]]
+		   then
+			less "/usr/share/common-licenses/$2"
+		   else
+			echo "Invalid license/passed value"
+		   fi
+		   ;;
+		*)
+			usage
+			exit 1
+			;;
+	esac
+done
