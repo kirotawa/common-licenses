@@ -17,7 +17,7 @@ if [ "$1" ]; then
 	while getopts 'lsp:' o;
 	do
 		case $o in
-			l) ls $SNAP/common-licenses/current/usr/share/common-licenses/
+			l) ls $SNAP/common-licenses/x1/current/usr/share/common-licenses/
 				;;
 			s) licenses=($(ls /usr/share/common-licenses/))
 		   	if [[ ${licenses[@]}  =~ $2 ]]
