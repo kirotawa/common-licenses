@@ -13,24 +13,26 @@ usage()
 	exit 1
 }
 
+MAGIC_PATH=/snap/common-licenses/current/usr/share/common-licenses
+
 if [ "$1" ]; then
 	while getopts 'lsp:' o;
 	do
 		case $o in
-			l) ls /snap/common-licenses/
+			l) ls $MAGIC_PATH
 				;;
-			s) licenses=($(ls /usr/share/common-licenses/))
+			s) licenses=($(ls $MAGIC_PATH))
 		   	if [[ ${licenses[@]}  =~ $2 ]]
 		   	then
-				less "/usr/share/common-licenses/$2"
+				less "${MAGIC_PATH}/$2"
 		   	else
 				echo "Invalid license/passed value"
 		   	fi
 		   	;;
-			p) licenses=($(ls /usr/share/common-licenses/))
+			p) licenses=($(ls $MAGIC_PATH))
 		   	if [[ ${licenses[@]}  =~ $2 ]]
 		   	then
-				cat "/usr/share/common-licenses/$2"
+				cat "${MAGIC_PATH}/$2"
 		   	else
 				echo "Invalid license/passed value"
 		   	fi
